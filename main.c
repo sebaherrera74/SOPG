@@ -7,11 +7,16 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+
+#include "reader.h"
+#include "writer.h"
+
+
 int main(void)
 {
     pid_t pid;
 	
-    int rv;
+    //int rv;
     int sarasa;
 
     switch(pid = fork())
@@ -23,23 +28,22 @@ int main(void)
 
 		/* Proceso Hijo :Readers */
 		case 0:
-		printf(" CHILD: This is the child process!\n");
-		printf(" CHILD: My PID is %d\n", getpid());
-		printf(" CHILD: My parent's PID is %d\n", getppid());
-		printf(" CHILD: Enter my exit status (make it small): ");
-		scanf(" %d", &rv);
-		printf(" CHILD: I'm outta here!\n");
-		exit(rv);
+		printf(" Este es el proceso Hijo \n");
+		printf(" My PID is %d\n", getpid());
+		/*Aqui va el proceso reader*/
+                reader();  
+                printf(" CHILD: I'm outta here!\n");
 		break;
 
                 /* Proceso Padre :Writers */
 		default:
-		printf("PARENT: This is the parent process!\n");
-		printf("PARENT: My PID is %d\n", getpid());
-		printf("PARENT: My childs PID is %d\n", pid);
-		wait(&sarasa);
-		printf("PARENT: My child's exit status is: %d\n", WEXITSTATUS(sarasa));
+		printf("Este es el proceso padre!\n");
+		printf(" My PID is %d\n", getpid());
+                /*Aqui va proceso writer*/
+                writer();  
+                printf("PARENT: My child's exit status is: %d\n", WEXITSTATUS(sarasa));
 		printf("PARENT: I'm outta here!\n");
+                break;
 	}
 }
 
