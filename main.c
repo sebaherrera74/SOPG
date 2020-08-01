@@ -17,7 +17,7 @@ int main(void)
     pid_t pid;
 	
     //int rv;
-    int sarasa;
+   // int sarasa;
 
     switch(pid = fork())
         {
@@ -32,8 +32,7 @@ int main(void)
 		printf(" My PID is %d\n", getpid());
 		/*Aqui va el proceso reader*/
                 reader();  
-                printf(" CHILD: I'm outta here!\n");
-		break;
+                break;
 
                 /* Proceso Padre :Writers */
 		default:
@@ -41,8 +40,6 @@ int main(void)
 		printf(" My PID is %d\n", getpid());
                 /*Aqui va proceso writer*/
                 writer();  
-                printf("PARENT: My child's exit status is: %d\n", WEXITSTATUS(sarasa));
-		printf("PARENT: I'm outta here!\n");
                 break;
 	}
 }
