@@ -36,7 +36,6 @@ int main(){
 //printf(" PRUEBA WRITER\n");
 
     char outputBuffer[BUFFER_SIZE];
-    char auxBuffer[BUFFER_SIZE+sizeof( "DATA:" )];  
     uint32_t bytesWrote;
     int32_t returnCode, fd;
     struct sigaction sa;
@@ -96,7 +95,9 @@ int main(){
                 
         /* Get some text from console */
    fgets(outputBuffer, BUFFER_SIZE, stdin);
-         
+  
+   char auxBuffer[BUFFER_SIZE+sizeof( "DATA:" )];   
+
     if( signalNumber != 0 )
         {
             sprintf( auxBuffer, "SIGN:%d\n", signalNumber); //Agrego SIGN: si es un dato 
@@ -109,7 +110,7 @@ int main(){
         
 
         /* Write buffer to named fifo. Strlen - 1 to avoid sending \n char */
-	if ((bytesWrote = write(fd,  auxBuffer, strlen(outputBuffer)-1)) == -1)
+	if ((bytesWrote = write(fd,  auxBuffer, strlen(auxBuffer)-1)) == -1)
         {
 		perror("write");
         }
